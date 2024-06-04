@@ -1,6 +1,7 @@
 import datetime
 import io
 import typing
+import re
 from dataclasses import dataclass
 
 
@@ -16,22 +17,17 @@ class Post:
     created: typing.Optional[datetime.datetime] = None
 
     def __str__(self) -> str:
-        description = self.description or '❌'
+        description = (re.sub(r'#\w+', '', self.description).replace('\n', '') 
+                       if self.description else '❌')
 
         return (
             '🔗 URL: {url}\n'
             '🧑🏻‍🎨 Author: {author}\n'
-            '📅 Created: {created}\n'
-            '👀 Views: {views}\n'
-            '👍🏻 Likes: {likes}\n'
             '📕 Description: {description}\n'
         ).format(
             url=self.url,
             author=self.author or '❌',
-            created=self._date_human_format(date=self.created) if self.created else '❌',
-            description=description if not self.spoiler else f'||{description}||',
-            views=self._number_human_format(num=self.views) if self.views else '❌',
-            likes=self._number_human_format(num=self.likes) if self.likes else '❌',
+            description=description if not self.spoiler else f'||{description}||'
         )
 
     def _number_human_format(self, num: int) -> str:

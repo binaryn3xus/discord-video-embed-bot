@@ -17,7 +17,7 @@ class Post:
     created: typing.Optional[datetime.datetime] = None
 
     def __str__(self) -> str:
-        description = (re.sub(r'#\w+', '', self.description).replace('\n', '') 
+        description = (re.sub(r'#\w+', '', self.description).replace('\n', '')
                        if self.description else '❌')
 
         return (

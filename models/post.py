@@ -19,15 +19,11 @@ class Post:
     def __str__(self) -> str:
         description = re.sub(r'#\w+', '', self.description).replace('\n', '') if self.description else '❌'
 
-        return (
-            '🔗 URL: {url}\n'
-            '🧑🏻‍🎨 Author: {author}\n'
-            '📕 Description: {description}\n'
-        ).format(
-            url=self.url,
-            author=self.author or '❌',
-            description=description if not self.spoiler else f'||{description}||',
-        )
+        return ('🔗 URL: {url}\n' '🧑🏻‍🎨 Author: {author}\n' '📕 Description: {description}\n').format(
+             url=self.url,
+             author=self.author or '❌',
+             description=description if not self.spoiler else f'||{description}||',
+         )
 
     def _number_human_format(self, num: int) -> str:
         num = float('{:.3g}'.format(num))

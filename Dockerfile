@@ -25,7 +25,10 @@ COPY *.py ./
 COPY downloader/* ./downloader/
 COPY models/* ./models/
 
-RUN pipenv install && pipenv run playwright install chromium && pipenv run playwright install-deps
+RUN pipenv install && \
+    pipenv install lxml[html_clean] && \
+    pipenv run playwright install chromium && \
+    pipenv run playwright install-deps
 
 # Set this
 ENTRYPOINT ["pipenv", "run", "python", "main.py"]
